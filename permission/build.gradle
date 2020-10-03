@@ -1,24 +1,24 @@
-buildscript {
-    repositories {
-        google()
-        jcenter()
-        mavenLocal()
-        mavenCentral()
-    }
-    dependencies {
-        classpath "com.android.tools.build:gradle:4.0.1"
-    }
-}
+apply plugin: 'com.android.library'
 
-allprojects {
-    repositories {
-        google()
-        jcenter()
-        mavenLocal()
-        mavenCentral()
+android {
+
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        
+        versionCode 1
+        versionName "1.0"
+
+        minSdkVersion 23
+        targetSdkVersion 30
+
+        consumerProguardFiles "consumer-rules.pro"
+
     }
-    tasks.withType(Javadoc).all {
-        enabled = false
-        options.setEncoding('UTF-8')
+
+    lintOptions {
+        disable 'LongLogTag'
     }
+
 }
