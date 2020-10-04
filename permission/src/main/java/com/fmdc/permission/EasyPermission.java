@@ -15,7 +15,7 @@ public class EasyPermission {
     Activity activity;
 
     public EasyPermission(Activity activity){
-        if(activity == null){
+        if(activity != null){
             this.activity = activity;
         }
     }
