@@ -44,7 +44,7 @@ public class EasyPermission {
                 }
             }
             if(requestList.size() > 0){
-                baseRequestPermissions(activity,(String[])requestList.toArray(new String[0]),code);
+                baseRequestPermissions(activity,requestList.toArray(new String[0]),code);
             }
         }
     }
@@ -61,19 +61,16 @@ public class EasyPermission {
             }
             activity.requestPermissions(permissions,code);
         }else if(activity instanceof validateRPR){
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    int[] permissionsId = new int[permissions.length];
-                    PackageManager manager = activity.getPackageManager();
-                    String packageName = activity.getPackageName();
-                    int length = permissions.length;
+            new Handler(Looper.getMainLooper()).post(() -> {
+                int[] permissionsId = new int[permissions.length];
+                PackageManager manager = activity.getPackageManager();
+                String packageName = activity.getPackageName();
+                int length = permissions.length;
 
-                    for(int id = 0; id < length; id++){
-                        permissionsId[id] = manager.checkPermission(permissions[id],packageName);
-                    }
-                    ((validateRPR)activity).requestPermissionResult(code,permissions,permissionsId);
+                for(int id = 0; id < length; id++){
+                    permissionsId[id] = manager.checkPermission(permissions[id],packageName);
                 }
+                ((validateRPR)activity).requestPermissionResult(code,permissions,permissionsId);
             });
         }
     }
